@@ -6,7 +6,7 @@ import { ApiResponse } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  readonly baseUrl = 'http://localhost:5000/api';
+  readonly baseUrl = `${window.location.protocol}//${window.location.hostname}:5001/api`;
 
   constructor(private http: HttpClient) {}
 
