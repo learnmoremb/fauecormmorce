@@ -5,6 +5,7 @@ import { ProductCardComponent } from '../../shared/components/product-card/produ
 import { ProductService } from '../../core/services/product.service';
 import { ShopService } from '../../core/services/shop.service';
 import { Product, Shop, CATEGORIES } from '../../core/models';
+import { BACKEND_ORIGIN } from '../../core/backend-origin';
 
 @Component({
   selector: 'app-home',
@@ -83,7 +84,7 @@ import { Product, Shop, CATEGORIES } from '../../core/models';
             <a [routerLink]="['/shops', shop._id]"
                class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow flex flex-col items-center text-center">
               @if (shop.logo) {
-                <img [src]="'http://localhost:5000' + shop.logo" [alt]="shop.name" class="w-16 h-16 rounded-full object-cover mb-3"/>
+                <img [src]="backendOrigin + shop.logo" [alt]="shop.name" class="w-16 h-16 rounded-full object-cover mb-3"/>
               } @else {
                 <div class="w-16 h-16 rounded-full bg-amazon-navy flex items-center justify-center text-white text-2xl font-bold mb-3">
                   {{ shop.name[0] }}
@@ -111,6 +112,7 @@ import { Product, Shop, CATEGORIES } from '../../core/models';
 export class HomeComponent implements OnInit {
   private productService = inject(ProductService);
   private shopService = inject(ShopService);
+  readonly backendOrigin = BACKEND_ORIGIN;
 
   products = signal<Product[]>([]);
   shops = signal<Shop[]>([]);

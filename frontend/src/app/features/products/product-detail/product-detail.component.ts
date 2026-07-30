@@ -6,6 +6,7 @@ import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Product, ProductVariant } from '../../../core/models';
+import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 
 @Component({
   selector: 'app-product-detail',
@@ -240,7 +241,7 @@ export class ProductDetailComponent implements OnInit {
       if (!p) return [];
       const imgs = [...p.images];
       p.variants.forEach(v => v.images.forEach(i => { if (!imgs.includes(i)) imgs.push(i); }));
-      return imgs.map(i => i.startsWith('/') ? `http://localhost:5000${i}` : i);
+      return imgs.map(i => i.startsWith('/') ? `${BACKEND_ORIGIN}${i}` : i);
     };
   }
 
@@ -271,7 +272,7 @@ export class ProductDetailComponent implements OnInit {
     );
     this.selectedVariant.set(match || null);
     if (match?.images.length) {
-      this.selectedImage.set(`http://localhost:5000${match.images[0]}`);
+      this.selectedImage.set(`${BACKEND_ORIGIN}${match.images[0]}`);
     }
   }
 

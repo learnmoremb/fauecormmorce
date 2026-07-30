@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../../core/services/order.service';
 import { Order } from '../../../core/models';
+import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 
 @Component({
   selector: 'app-order-detail',
@@ -156,7 +157,7 @@ export class OrderDetailComponent implements OnInit {
   }
 
   getImg(item: any): string {
-    if (item.image) return item.image.startsWith('/') ? `http://localhost:5000${item.image}` : item.image;
+    if (item.image) return item.image.startsWith('/') ? `${BACKEND_ORIGIN}${item.image}` : item.image;
     return 'https://placehold.co/80x80?text=Item';
   }
 

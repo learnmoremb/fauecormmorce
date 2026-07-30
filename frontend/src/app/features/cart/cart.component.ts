@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CartService } from '../../core/services/cart.service';
 import { AuthService } from '../../core/services/auth.service';
 import { CartItem } from '../../core/models';
+import { BACKEND_ORIGIN } from '../../core/backend-origin';
 
 @Component({
   selector: 'app-cart',
@@ -153,7 +154,7 @@ export class CartComponent implements OnInit {
     const imgs = (item.product as any).images;
     if (imgs && imgs.length > 0) {
       const img = imgs[0];
-      return img.startsWith('/') ? `http://localhost:5000${img}` : img;
+      return img.startsWith('/') ? `${BACKEND_ORIGIN}${img}` : img;
     }
     return 'https://placehold.co/100x100?text=Item';
   }

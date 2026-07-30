@@ -3,10 +3,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiResponse } from '../models';
+import { BACKEND_ORIGIN } from '../backend-origin';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  readonly baseUrl = `${window.location.protocol}//${window.location.hostname}:5001/api`;
+  readonly baseUrl = `${BACKEND_ORIGIN}/api`;
 
   constructor(private http: HttpClient) {}
 

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductService } from '../../../core/services/product.service';
 import { Product } from '../../../core/models';
+import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 
 @Component({
   selector: 'app-shop-products',
@@ -110,7 +111,7 @@ export class ShopProductsComponent implements OnInit {
   getImg(p: Product): string {
     if (p.images && p.images.length > 0) {
       const img = p.images[0];
-      return img.startsWith('/') ? `http://localhost:5000${img}` : img;
+      return img.startsWith('/') ? `${BACKEND_ORIGIN}${img}` : img;
     }
     return 'https://placehold.co/40x40?text=P';
   }

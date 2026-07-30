@@ -4,6 +4,7 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ShopService } from '../../../core/services/shop.service';
 import { Shop, CATEGORIES } from '../../../core/models';
+import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 
 @Component({
   selector: 'app-shop-list',
@@ -40,7 +41,7 @@ import { Shop, CATEGORIES } from '../../../core/models';
           @for (shop of shops(); track shop._id) {
             <a [routerLink]="['/shops', shop._id]" class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow flex flex-col items-center text-center">
               @if (shop.logo) {
-                <img [src]="'http://localhost:5000' + shop.logo" [alt]="shop.name" class="w-16 h-16 rounded-full object-cover mb-3"/>
+                <img [src]="backendOrigin + shop.logo" [alt]="shop.name" class="w-16 h-16 rounded-full object-cover mb-3"/>
               } @else {
                 <div class="w-16 h-16 rounded-full bg-amazon-navy flex items-center justify-center text-white text-2xl font-bold mb-3">
                   {{ shop.name[0] }}
@@ -66,6 +67,7 @@ export class ShopListComponent implements OnInit {
   private shopService = inject(ShopService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  readonly backendOrigin = BACKEND_ORIGIN;
 
   shops = signal<Shop[]>([]);
   loading = signal(true);

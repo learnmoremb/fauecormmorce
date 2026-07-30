@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../../core/services/admin.service';
 import { Shop } from '../../../core/models';
+import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 
 @Component({
   selector: 'app-admin-shops',
@@ -77,7 +78,7 @@ import { Shop } from '../../../core/models';
                   <td class="px-4 py-3">
                     <div class="flex items-center gap-3">
                       @if (shop.logo) {
-                        <img [src]="'http://localhost:5000' + shop.logo" class="w-10 h-10 rounded-lg object-cover border"/>
+                        <img [src]="backendOrigin + shop.logo" class="w-10 h-10 rounded-lg object-cover border"/>
                       } @else {
                         <div class="w-10 h-10 rounded-lg bg-amazon-navy flex items-center justify-center text-white font-bold">
                           {{ shop.name[0] }}
@@ -200,6 +201,7 @@ import { Shop } from '../../../core/models';
 })
 export class AdminShopsComponent implements OnInit {
   private adminService = inject(AdminService);
+  readonly backendOrigin = BACKEND_ORIGIN;
 
   shops = signal<Shop[]>([]);
   loading = signal(true);

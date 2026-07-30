@@ -6,6 +6,7 @@ import { DeliveryService } from '../../../core/services/delivery.service';
 import { DriverService } from '../../../core/services/driver.service';
 import { OrderService } from '../../../core/services/order.service';
 import { Delivery, Driver, Order } from '../../../core/models';
+import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 
 @Component({
   selector: 'app-shop-delivery',
@@ -104,7 +105,7 @@ import { Delivery, Driver, Order } from '../../../core/models';
                         : 'border border-gray-200 rounded-lg p-3 cursor-pointer hover:border-gray-400 flex items-center gap-3'"
                     >
                       @if (driverAvatar(driver)) {
-                        <img [src]="'http://localhost:5000' + driverAvatar(driver)" class="w-10 h-10 rounded-full object-cover"/>
+                        <img [src]="backendOrigin + driverAvatar(driver)" class="w-10 h-10 rounded-full object-cover"/>
                       } @else {
                         <div class="w-10 h-10 rounded-full bg-amazon-navy flex items-center justify-center text-white font-bold text-sm">
                           {{ driverInitial(driver) }}
@@ -199,6 +200,7 @@ export class ShopDeliveryComponent implements OnInit {
   private deliveryService = inject(DeliveryService);
   private driverService = inject(DriverService);
   private orderService = inject(OrderService);
+  readonly backendOrigin = BACKEND_ORIGIN;
   private route = inject(ActivatedRoute);
 
   activeTab = signal<'create' | 'active'>('create');

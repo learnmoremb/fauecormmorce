@@ -5,6 +5,7 @@ import { ShopService } from '../../../core/services/shop.service';
 import { OrderService } from '../../../core/services/order.service';
 import { ProductService } from '../../../core/services/product.service';
 import { Shop, Order } from '../../../core/models';
+import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 
 @Component({
   selector: 'app-shop-dashboard',
@@ -58,7 +59,7 @@ import { Shop, Order } from '../../../core/models';
         @if (shop()) {
           <div class="card mb-8 flex flex-col md:flex-row gap-4 items-start">
             @if (shop()!.logo) {
-              <img [src]="'http://localhost:5000' + shop()!.logo" [alt]="shop()!.name" class="w-20 h-20 rounded-lg object-cover border"/>
+              <img [src]="backendOrigin + shop()!.logo" [alt]="shop()!.name" class="w-20 h-20 rounded-lg object-cover border"/>
             } @else {
               <div class="w-20 h-20 rounded-lg bg-amazon-navy flex items-center justify-center text-white text-3xl font-bold">
                 {{ shop()!.name[0] }}
@@ -133,6 +134,7 @@ export class ShopDashboardComponent implements OnInit {
   private shopService = inject(ShopService);
   private orderService = inject(OrderService);
   private productService = inject(ProductService);
+  readonly backendOrigin = BACKEND_ORIGIN;
 
   shop = signal<Shop | null>(null);
   recentOrders = signal<Order[]>([]);
