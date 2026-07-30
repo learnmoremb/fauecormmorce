@@ -7,7 +7,6 @@ import { Delivery } from '../../../core/models';
 import { Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DeliveryMapComponent, MapPoint } from '../../../shared/components/delivery-map/delivery-map.component';
-import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 
 @Component({
   selector: 'app-delivery-tracking',
@@ -65,7 +64,7 @@ import { BACKEND_ORIGIN } from '../../../core/backend-origin';
             <h2 class="font-semibold mb-4">Your Driver</h2>
             <div class="flex items-center gap-4">
               @if (driverAvatar()) {
-                <img [src]="backendOrigin + driverAvatar()" class="w-16 h-16 rounded-full object-cover"/>
+                <img [src]="driverAvatar()" class="w-16 h-16 rounded-full object-cover"/>
               } @else {
                 <div class="w-16 h-16 rounded-full bg-amazon-navy flex items-center justify-center text-white text-2xl font-bold">
                   {{ driverInitial() }}
@@ -172,7 +171,6 @@ import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 export class DeliveryTrackingComponent implements OnInit, OnDestroy {
   private deliveryService = inject(DeliveryService);
   private route = inject(ActivatedRoute);
-  readonly backendOrigin = BACKEND_ORIGIN;
 
   delivery = signal<Delivery | null>(null);
   loading = signal(true);

@@ -6,7 +6,6 @@ import { CartService } from '../../../core/services/cart.service';
 import { OrderService } from '../../../core/services/order.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { AddressMapPickerComponent, PickedLocation } from '../../../shared/components/address-map-picker/address-map-picker.component';
-import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 
 @Component({
   selector: 'app-checkout',
@@ -191,7 +190,7 @@ export class CheckoutComponent implements OnInit {
     const imgs = item.product?.images;
     if (imgs && imgs.length > 0) {
       const img = imgs[0];
-      return img.startsWith('/') ? `${BACKEND_ORIGIN}${img}` : img;
+      return img;
     }
     return 'https://placehold.co/50x50?text=Item';
   }

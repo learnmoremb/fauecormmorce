@@ -4,11 +4,10 @@ import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User, LoginRequest, RegisterRequest, AuthResponse, ApiResponse } from '../models';
-import { BACKEND_ORIGIN } from '../backend-origin';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly baseUrl = `${BACKEND_ORIGIN}/api/auth`;
+  private readonly baseUrl = '/api/auth';
   private readonly TOKEN_KEY = 'sz_token';
 
   private _currentUser = signal<User | null>(null);

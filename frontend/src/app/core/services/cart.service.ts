@@ -4,11 +4,10 @@ import { Observable, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Cart, CartItem, ApiResponse } from '../models';
 import { AuthService } from './auth.service';
-import { BACKEND_ORIGIN } from '../backend-origin';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private readonly baseUrl = `${BACKEND_ORIGIN}/api/cart`;
+  private readonly baseUrl = '/api/cart';
 
   private _cart = signal<Cart | null>(null);
   readonly cart = this._cart.asReadonly();

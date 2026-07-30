@@ -5,7 +5,6 @@ import { Product } from '../../../core/models';
 import { CartService } from '../../../core/services/cart.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
-import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 
 @Component({
   selector: 'app-product-card',
@@ -93,7 +92,7 @@ export class ProductCardComponent {
   getImage(): string {
     if (this.product.images && this.product.images.length > 0) {
       const img = this.product.images[0];
-      return img.startsWith('/') ? `${BACKEND_ORIGIN}${img}` : img;
+      return img;
     }
     return 'https://placehold.co/400x300?text=No+Image';
   }

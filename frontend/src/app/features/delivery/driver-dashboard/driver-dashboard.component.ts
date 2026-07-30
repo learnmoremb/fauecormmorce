@@ -7,7 +7,6 @@ import { Driver, Delivery, VEHICLE_TYPES } from '../../../core/models';
 import { Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DeliveryMapComponent, MapPoint } from '../../../shared/components/delivery-map/delivery-map.component';
-import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 
 @Component({
   selector: 'app-driver-dashboard',
@@ -28,7 +27,7 @@ import { BACKEND_ORIGIN } from '../../../core/backend-origin';
         <div class="card mb-6 flex flex-col md:flex-row items-center md:items-start gap-4">
           <div class="relative shrink-0">
             @if (driver()!.photo) {
-              <img [src]="backendOrigin + driver()!.photo" class="w-24 h-24 rounded-full object-cover border-4 border-amazon-orange"/>
+              <img [src]="driver()!.photo" class="w-24 h-24 rounded-full object-cover border-4 border-amazon-orange"/>
             } @else {
               <div class="w-24 h-24 rounded-full bg-amazon-navy flex items-center justify-center text-white text-3xl font-bold">
                 {{ driver()!.user.name?.[0] }}
@@ -193,7 +192,6 @@ import { BACKEND_ORIGIN } from '../../../core/backend-origin';
 export class DriverDashboardComponent implements OnInit, OnDestroy {
   private driverService = inject(DriverService);
   private deliveryService = inject(DeliveryService);
-  readonly backendOrigin = BACKEND_ORIGIN;
 
   driver = signal<Driver | null>(null);
   deliveries = signal<Delivery[]>([]);
