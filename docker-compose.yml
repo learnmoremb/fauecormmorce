@@ -1,0 +1,57 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: shopzone-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: shopzone-backend
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      PORT: 5000
+      MONGODB_URI: mongodb://mongo:27017/shopzone
+      JWT_SECRET: shopzone_dev_secret_key_2024
+      JWT_EXPIRES_IN: 7d
+      NODE_ENV: development
+      FRONTEND_URL: http://localhost:4200
+    ports:
+      - "5000:5000"
+    volumes:
+      - backend-uploads:/app/uploads
+
+  admin-seed:
+    build: ./backend
+    container_name: shopzone-admin-seed
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/shopzone
+    command: ["node", "scripts/seed-admin.js"]
+    restart: "no"
+
+  frontend:
+    build: ./frontend
+    container_name: shopzone-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "4200:4200"
+
+volumes:
+  mongo-data:
+  backend-uploads:
